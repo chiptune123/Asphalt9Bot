@@ -31,6 +31,7 @@
             self.btn_race = cv2.imread('templates/race_btn.png', 0)
             self.btn_next = cv2.imread('templates/next_btn.png', 0)
             self.ui_racing = cv2.imread('templates/touchdrive_icon.png', 0) # An icon only visible while driving
+            self.home = cv2.imread('templates/home_btn.png', 0)
             
             # VIP Task Templates
             self.vip_logo = cv2.imread('templates/vip_logo.png', 0)
@@ -107,25 +108,26 @@
                 pyautogui.click(vip_loc)
                 time.sleep(2)
             else:
-                print("Could not find VIP logo. Skipping task.")
+                print("Could not find VIP logo. Task failed.")
                 return True
 
-            # Step 2: Find and click the VIP Tab
+            # Step 2: Find and click the vip_logo_tab
             tab_loc = self.scan_screen(self.vip_logo_tab)
             if tab_loc:
                 print("Found VIP tab. Clicking...")
                 pyautogui.click(tab_loc)
-                time.sleep(2) # Wait for tab contents to load
+                time.sleep(2) 
             else:
-                print("Could not find VIP tab. Skipping task.")
+                print("Could not find VIP tab. Task failed..")
                 return True
                 
             # Step 3: Find and click the Claim button
             claim_loc = self.scan_screen(self.vip_claim_btn)
+            home_loc = self.scan_screen(self.home)
             if claim_loc:
                 print("Found VIP Claim button. Clicking...")
                 pyautogui.click(claim_loc)
-                time.sleep(3) # Wait for the rewards animation
+                time.sleep(3) 
                 
                 # Press 'Esc' or a back key to return to the main menu
                 # You may need to replace this with an OpenCV scan of the game's "Back" arrow
@@ -133,7 +135,7 @@
                 pyautogui.press('esc') 
                 time.sleep(2)
             else:
-                print("Claim button not found (perhaps already claimed). Returning to menu.")
+                print("Claim button not found or already claimed. Returning to menu.")
                 pyautogui.press('esc')
                 time.sleep(2)
 
